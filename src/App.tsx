@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import type { Department, Language } from "./data/departments";
-import { departments } from "./data/departments";
+import { departments, allAgents } from "./data/departments";
 import { getTemplate } from "./data/templates";
 import { EmailPreview } from "./components/EmailPreview";
 import { generateEmailHtml } from "./utils/emailHtml";
@@ -256,7 +256,7 @@ export default function App() {
                   }}
                 >
                   <option value="">Select an agent</option>
-                  {config.agents.map((a) => (
+                  {allAgents.map((a) => (
                     <option key={a} value={a}>{a}</option>
                   ))}
                 </select>
