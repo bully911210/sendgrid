@@ -8,10 +8,36 @@ export interface DepartmentConfig {
   color: string;
   colorDark: string;
   colorClass: string;
-  agents: string[];
   showBankDetails: boolean;
   hasAttachment: boolean;
 }
+
+// Consolidated list of all agents serving all departments
+export const allAgents = [
+  "Cindy Cloete",
+  "Cobus Esterhuizen",
+  "Geneveve Webster",
+  "Irene Brummer",
+  "Irene Rossouw",
+  "Juan Pretorius",
+  "Jurie Steyn",
+  "Lee-Anne Brummer",
+  "Leodette Maritz",
+  "Martin Van Der Walt",
+  "Martin Webster",
+  "Michael Mostert",
+  "Pierre Farrell",
+  "Robert Eglington",
+  "Sammy Farrell",
+  "Santamari Barker",
+  "Shireen Bester",
+  "Stephanie Wheeler",
+  "Test Agent",
+  "Vanessa Fourie",
+  "Wynand Boshoff",
+  "Wynand Kapp",
+  "Zane Erasmus",
+];
 
 export const departments: Record<Department, DepartmentConfig> = {
   "Free SA": {
@@ -21,16 +47,6 @@ export const departments: Record<Department, DepartmentConfig> = {
     color: "#f97316",
     colorDark: "#ea580c",
     colorClass: "freesa",
-    agents: [
-      "Cindy Cloete",
-      "Irene Rossouw",
-      "Juan Pretorius",
-      "Pierre Farrell",
-      "Santamari Barker",
-      "Shireen Bester",
-      "Vanessa Fourie",
-      "Wynand Kapp",
-    ],
     showBankDetails: true,
     hasAttachment: false,
   },
@@ -41,26 +57,6 @@ export const departments: Record<Department, DepartmentConfig> = {
     color: "#22c55e",
     colorDark: "#16a34a",
     colorClass: "tlusa",
-    agents: [
-      "Cindy Cloete",
-      "Cobus Esterhuizen",
-      "Geneveve Webster",
-      "Irene Brummer",
-      "Irene Rossouw",
-      "Juan Pretorius",
-      "Lee-Anne Brummer",
-      "Leodette Maritz",
-      "Martin Van Der Walt",
-      "Martin Webster",
-      "Pierre Farrell",
-      "Robert Eglington",
-      "Sammy Farrell",
-      "Santamari Barker",
-      "Shireen Bester",
-      "Stephanie Wheeler",
-      "Wynand Kapp",
-      "Zane Erasmus",
-    ],
     showBankDetails: true,
     hasAttachment: false,
   },
@@ -71,18 +67,6 @@ export const departments: Record<Department, DepartmentConfig> = {
     color: "#dc2626",
     colorDark: "#b91c1c",
     colorClass: "firearms",
-    agents: [
-      "Cindy Cloete",
-      "Irene Rossouw",
-      "Jurie Steyn",
-      "Leodette Maritz",
-      "Michael Mostert",
-      "Robert Eglington",
-      "Shireen Bester",
-      "Stephanie Wheeler",
-      "Vanessa Fourie",
-      "Wynand Boshoff",
-    ],
     showBankDetails: false,
     hasAttachment: true,
   },
@@ -93,16 +77,6 @@ export const departments: Record<Department, DepartmentConfig> = {
     color: "#2563eb",
     colorDark: "#1d4ed8",
     colorClass: "civilsociety",
-    agents: [
-      "Cindy Cloete",
-      "Irene Rossouw",
-      "Juan Pretorius",
-      "Pierre Farrell",
-      "Santamari Barker",
-      "Shireen Bester",
-      "Vanessa Fourie",
-      "Wynand Kapp",
-    ],
     showBankDetails: true,
     hasAttachment: false,
   },
