@@ -163,7 +163,7 @@ const templates: Record<Department, Record<Language, EmailTemplate>> = {
         {
           heading: "Pricing",
           content:
-            "Option 1: R135.00/month - legal protection\nOption 2: R245.00/month - legal protection plus liability cover\n\nA 3-month waiting period applies to litigation and court representation. Legal advice is available from day one.\n\nAdministered by Firearms Guardian (Pty) Ltd (FSP 47115). Underwritten by GENRIC Insurance Company Limited (FSP 43638).",
+            "Option 1: R135.00/month - legal protection\nOption 2: R245.00/month - legal protection plus liability cover\n\nAdministered by Firearms Guardian (Pty) Ltd (FSP 47115). Underwritten by GENRIC Insurance Company Limited (FSP 43638).",
         },
       ],
       buttons: [
@@ -190,7 +190,7 @@ const templates: Record<Department, Record<Language, EmailTemplate>> = {
         {
           heading: "Pryse",
           content:
-            "Opsie 1: R135.00/maand - regsbeskerming\nOpsie 2: R245.00/maand - regsbeskerming plus aanspreeklikheidsdekking\n\nDaar is 'n 3-maande wagtydperk vir litigasie en hofverteenwoordiging. Regsadvies is beskikbaar vanaf dag een.\n\nGeadministreer deur Firearms Guardian (Edms) Bpk (FSP 47115). Onderskryf deur GENRIC Insurance Company Limited (FSP 43638).",
+            "Opsie 1: R135.00/maand - regsbeskerming\nOpsie 2: R245.00/maand - regsbeskerming plus aanspreeklikheidsdekking\n\nGeadministreer deur Firearms Guardian (Edms) Bpk (FSP 47115). Onderskryf deur GENRIC Insurance Company Limited (FSP 43638).",
         },
       ],
       buttons: [
