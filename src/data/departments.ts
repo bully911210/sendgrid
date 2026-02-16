@@ -16,6 +16,7 @@ export interface DepartmentConfig {
 export const allAgents = [
   "Cindy Cloete",
   "Cobus Esterhuizen",
+  "Elize Eglington",
   "Geneveve Webster",
   "Irene Brummer",
   "Irene Rossouw",
