@@ -20,6 +20,7 @@ export const allAgents = [
   "Geneveve Webster",
   "Irene Brummer",
   "Irene Rossouw",
+  "Jennifer Muller",
   "Juan Pretorius",
   "Jurie Steyn",
   "Lee-Anne Brummer",
