@@ -31,6 +31,7 @@ export const allAgents = [
   "Pierre Farrell",
   "Robert Eglington",
   "Sammy Farrell",
+  "Samantha Arlow",
   "Santamari Barker",
   "Shireen Bester",
   "Stephanie Wheeler",
