@@ -27,6 +27,7 @@ export const allAgents = [
   "Leodette Maritz",
   "Martin Van Der Walt",
   "Martin Webster",
+  "Marilize Van Eyk",  
   "Michael Mostert",
   "Pierre Farrell",
   "Robert Eglington",
