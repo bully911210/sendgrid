@@ -14,7 +14,7 @@ export interface EmailTemplate {
   footer: { closing: string; department: string };
 }
 
-const templates: Record<Department, Record<Language, EmailTemplate>> = {
+export const templates: Record<Department, Record<Language, EmailTemplate>> = {
   "Free SA": {
     en: {
       subject: "Free SA - Your Contribution Details",
