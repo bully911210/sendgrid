@@ -1,16 +1,18 @@
 import { useState, useCallback } from "react";
 import type { Department, Language } from "./data/departments";
-import { departments, allAgents } from "./data/departments";
-import { getTemplate } from "./data/templates";
+import { departments } from "./data/departments";
 import { EmailPreview } from "./components/EmailPreview";
+import { SettingsPage } from "./components/SettingsPage";
 import { generateEmailHtml } from "./utils/emailHtml";
 import { generateFirearmsGuardianPdf } from "./utils/pdfGenerator";
+import { useSettings } from "./hooks/useSettings";
 import {
   Send,
   CheckCircle,
   AlertCircle,
   Loader2,
   Paperclip,
+  Settings,
 } from "lucide-react";
 
 const deptKeys = Object.keys(departments) as Department[];
@@ -18,6 +20,9 @@ const deptKeys = Object.keys(departments) as Department[];
 type ToastState = null | { type: "success" | "error"; message: string };
 
 export default function App() {
+  const [view, setView] = useState<"compose" | "settings">("compose");
+  const { agents, templates, save } = useSettings();
+
   const [activeDept, setActiveDept] = useState<Department>("Free SA");
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
@@ -25,18 +30,48 @@ export default function App() {
   const [language, setLanguage] = useState<Language>("en");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [toast, setToast] = useState<ToastState>(null);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [settingsUnlocked, setSettingsUnlocked] = useState(
+    () => sessionStorage.getItem("settings_unlocked") === "1"
+  );
 
   const config = departments[activeDept];
-  const template = getTemplate(activeDept, language);
+  const template = templates[activeDept][language];
 
   const switchDepartment = useCallback((dept: Department) => {
     setActiveDept(dept);
     setSelectedAgent("");
   }, []);
 
+  if (view === "settings") {
+    return (
+      <SettingsPage
+        initialAgents={agents}
+        initialTemplates={templates}
+        onSave={save}
+        onBack={() => setView("compose")}
+      />
+    );
+  }
+
   const showToast = (type: "success" | "error", message: string) => {
     setToast({ type, message });
     setTimeout(() => setToast(null), 5000);
+  };
+
+  const handlePasswordSubmit = () => {
+    if (passwordInput === "SIGS@2024!!") {
+      sessionStorage.setItem("settings_unlocked", "1");
+      setSettingsUnlocked(true);
+      setShowPasswordModal(false);
+      setPasswordInput("");
+      setPasswordError(false);
+      setView("settings");
+    } else {
+      setPasswordError(true);
+    }
   };
 
   const handleSend = async () => {
@@ -127,10 +162,39 @@ export default function App() {
           {/* Logo row */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 80 }}>
             <img src="/logo.png" alt="SIG Solutions" style={{ height: 68 }} />
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <span style={{ fontSize: 12, color: "#9ca3af", fontWeight: 500 }}>
                 Sending from <span style={{ color: "#6b7280", fontWeight: 600 }}>{config.senderEmail}</span>
               </span>
+              <button
+                onClick={() => {
+                  if (settingsUnlocked) {
+                    setView("settings");
+                  } else {
+                    setPasswordInput("");
+                    setPasswordError(false);
+                    setShowPasswordModal(true);
+                  }
+                }}
+                title="Settings"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "7px 14px",
+                  borderRadius: 8,
+                  border: "1.5px solid #e2e5ea",
+                  background: "#fff",
+                  color: "#6b7280",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                }}
+              >
+                <Settings style={{ width: 14, height: 14 }} />
+                Settings
+              </button>
             </div>
           </div>
 
@@ -173,7 +237,7 @@ export default function App() {
       </header>
 
       {/* ====== MAIN CONTENT ====== */}
-      <main style={{ maxWidth: 1200, margin: "0 auto", padding: "28px 28px 20px" }}>
+      <main style={{ maxWidth: 1200, margin: "0 auto", padding: "28px 28px 40px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
 
           {/* ── LEFT: FORM ── */}
@@ -256,7 +320,7 @@ export default function App() {
                   }}
                 >
                   <option value="">Select an agent</option>
-                  {allAgents.map((a) => (
+                  {agents.map((a) => (
                     <option key={a} value={a}>{a}</option>
                   ))}
                 </select>
@@ -389,27 +453,32 @@ export default function App() {
           </div>
 
           {/* ── RIGHT: EMAIL PREVIEW ── */}
-          <div>
+          <div style={{ position: "sticky", top: 24 }}>
             <div style={{
               background: "#fff",
               borderRadius: 12,
               border: "1px solid #e5e7eb",
               padding: "28px 28px 24px",
+              display: "flex",
+              flexDirection: "column",
+              maxHeight: "calc(100vh - 140px)",
             }}>
-              <h2 style={{ fontSize: 17, fontWeight: 700, color: "#1a1a2e", marginBottom: 6, display: "flex", alignItems: "center", gap: 10 }}>
+              <h2 style={{ fontSize: 17, fontWeight: 700, color: "#1a1a2e", marginBottom: 6, display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
                 <span style={{ width: 4, height: 20, borderRadius: 2, background: config.color, display: "inline-block", transition: "background 0.2s" }} />
                 Email Preview
               </h2>
-              <p style={{ fontSize: 13, color: "#9ca3af", marginBottom: 20 }}>
+              <p style={{ fontSize: 13, color: "#9ca3af", marginBottom: 20, flexShrink: 0 }}>
                 This is how your email will appear to the recipient
               </p>
 
-              <EmailPreview
-                template={template}
-                config={config}
-                clientName={clientName}
-                agentName={selectedAgent}
-              />
+              <div style={{ overflowY: "auto", minHeight: 0, flex: 1 }}>
+                <EmailPreview
+                  template={template}
+                  config={config}
+                  clientName={clientName}
+                  agentName={selectedAgent}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -458,6 +527,120 @@ export default function App() {
           >
             &times;
           </button>
+        </div>
+      )}
+
+      {/* ====== PASSWORD MODAL ====== */}
+      {showPasswordModal && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.45)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 100,
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowPasswordModal(false);
+              setPasswordInput("");
+              setPasswordError(false);
+            }
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: 14,
+              padding: "32px 36px",
+              width: 360,
+              boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+            }}
+          >
+            <div>
+              <h3 style={{ fontSize: 17, fontWeight: 700, color: "#1a1a2e", margin: 0, marginBottom: 6 }}>
+                Settings Access
+              </h3>
+              <p style={{ fontSize: 13, color: "#9ca3af", margin: 0 }}>
+                Enter the password to access Settings.
+              </p>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <input
+                type="password"
+                autoFocus
+                value={passwordInput}
+                onChange={(e) => {
+                  setPasswordInput(e.target.value);
+                  setPasswordError(false);
+                }}
+                onKeyDown={(e) => e.key === "Enter" && handlePasswordSubmit()}
+                placeholder="Password"
+                style={{
+                  width: "100%",
+                  padding: "11px 14px",
+                  border: `1.5px solid ${passwordError ? "#f87171" : "#e2e5ea"}`,
+                  borderRadius: 8,
+                  fontSize: 14,
+                  fontFamily: "inherit",
+                  color: "#1a1a2e",
+                  background: passwordError ? "#fef2f2" : "#fff",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+              {passwordError && (
+                <p style={{ fontSize: 12, color: "#dc2626", margin: 0, fontWeight: 500 }}>
+                  Incorrect password. Please try again.
+                </p>
+              )}
+            </div>
+
+            <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+              <button
+                onClick={() => {
+                  setShowPasswordModal(false);
+                  setPasswordInput("");
+                  setPasswordError(false);
+                }}
+                style={{
+                  padding: "9px 18px",
+                  borderRadius: 8,
+                  border: "1.5px solid #e2e5ea",
+                  background: "#fff",
+                  color: "#6b7280",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handlePasswordSubmit}
+                style={{
+                  padding: "9px 18px",
+                  borderRadius: 8,
+                  border: "none",
+                  background: "#1a1a2e",
+                  color: "#fff",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                }}
+              >
+                Unlock
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

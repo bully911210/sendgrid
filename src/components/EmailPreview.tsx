@@ -44,7 +44,7 @@ export function EmailPreview({ template, config, clientName, agentName }: Props)
         {/* Sections */}
         {template.sections?.map((section, i) => {
           const lines = section.content.split("\n").filter(Boolean);
-          const isList = lines.length > 1 && !section.content.includes(". ");
+          const isList = lines.length > 1 && !lines.some(l => /[.!?]$/.test(l.trim()));
 
           return (
             <div key={i} style={{ marginBottom: 14 }}>

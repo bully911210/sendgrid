@@ -28,7 +28,7 @@ export function generateEmailHtml(
           const lines = s.content.split("\n").filter(Boolean);
           let contentHtml: string;
 
-          if (lines.length > 1 && !s.content.includes(". ")) {
+          if (lines.length > 1 && !lines.some(l => /[.!?]$/.test(l.trim()))) {
             // Render as clean list items
             contentHtml = lines
               .map(
