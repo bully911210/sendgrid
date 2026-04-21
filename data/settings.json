@@ -275,13 +275,35 @@
         ],
         "buttons": [
           {
-            "text": "Sign Our Petitions",
-            "link": "https://civilsocietysa.co.za/#campaigns"
+            "text": "Join CSSA",
+            "link": "https://civilsocietysouthafrica.co.za/join/"
           }
         ],
         "footer": {
           "closing": "Regards,",
           "department": "Civil Society South Africa"
+        },
+        "bankDetails": {
+          "title": "Bank Details",
+          "rows": [
+            {
+              "label": "Bank",
+              "value": "Nedbank"
+            },
+            {
+              "label": "Account Name",
+              "value": "Civil Society SA NPC"
+            },
+            {
+              "label": "Account Number",
+              "value": "1329476204"
+            },
+            {
+              "label": "Branch Code",
+              "value": "198765"
+            }
+          ],
+          "proofNote": ""
         }
       },
       "af": {
