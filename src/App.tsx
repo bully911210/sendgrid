@@ -21,7 +21,7 @@ type ToastState = null | { type: "success" | "error"; message: string };
 
 export default function App() {
   const [view, setView] = useState<"compose" | "settings">("compose");
-  const { agents, templates, save } = useSettings();
+  const { agents, templates, loading, error, save } = useSettings();
 
   const [activeDept, setActiveDept] = useState<Department>("Free SA");
   const [clientName, setClientName] = useState("");
@@ -38,12 +38,32 @@ export default function App() {
   );
 
   const config = departments[activeDept];
-  const template = templates[activeDept][language];
 
   const switchDepartment = useCallback((dept: Department) => {
     setActiveDept(dept);
     setSelectedAgent("");
   }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#f5f6f8",
+          fontFamily: "'Outfit', system-ui, sans-serif",
+          color: "#6b7280",
+          gap: 10,
+        }}
+      >
+        <Loader2 style={{ width: 18, height: 18, animation: "spin 1s linear infinite" }} />
+        <span style={{ fontSize: 14, fontWeight: 500 }}>Loading settings…</span>
+        <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
 
   if (view === "settings") {
     return (
@@ -55,6 +75,8 @@ export default function App() {
       />
     );
   }
+
+  const template = templates[activeDept][language];
 
   const showToast = (type: "success" | "error", message: string) => {
     setToast({ type, message });
@@ -238,6 +260,26 @@ export default function App() {
 
       {/* ====== MAIN CONTENT ====== */}
       <main style={{ maxWidth: 1200, margin: "0 auto", padding: "28px 28px 40px" }}>
+        {error && (
+          <div
+            style={{
+              marginBottom: 20,
+              padding: "12px 16px",
+              borderRadius: 8,
+              border: "1px solid #fcd34d",
+              background: "#fffbeb",
+              color: "#92400e",
+              fontSize: 13,
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <AlertCircle style={{ width: 16, height: 16, flexShrink: 0 }} />
+            Couldn't load settings from the server. Showing defaults — changes
+            won't save until the connection is restored.
+          </div>
+        )}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
 
           {/* ── LEFT: FORM ── */}
