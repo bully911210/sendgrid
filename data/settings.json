@@ -322,13 +322,35 @@
         ],
         "buttons": [
           {
-            "text": "Teken Ons Petisies",
-            "link": "https://civilsocietysa.co.za/#campaigns"
+            "text": "Sluit vandag aan!",
+            "link": "https://civilsocietysouthafrica.co.za/join/"
           }
         ],
         "footer": {
           "closing": "Groete,",
           "department": "Civil Society South Africa"
+        },
+        "bankDetails": {
+          "title": "Bank Details",
+          "rows": [
+            {
+              "label": "Bank",
+              "value": "Nedbank"
+            },
+            {
+              "label": "Account Name",
+              "value": "Civil Society SA NPC"
+            },
+            {
+              "label": "Account Number",
+              "value": "1329476204"
+            },
+            {
+              "label": "Branch Code",
+              "value": "198765"
+            }
+          ],
+          "proofNote": ""
         }
       }
     }
