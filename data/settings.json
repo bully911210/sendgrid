@@ -239,11 +239,11 @@
       "af": {
         "subject": "Firearms Guardian - Jou Aansoek-besonderhede",
         "greeting": "Hallo {{clientName}},",
-        "body": "Dankie dat jy met {{agentName}} van Firearms Guardian gesels het.\n\nFirearms Guardian bied regsbeskerming en aanspreeklikheidsdekking vir wettige vuurwapenaars. As jy 'n regskwessie het wat jou vuurwapen betrek, skakel ons jou met gekwalifiseerde prokureurs en dek ons jou regskoste.",
+        "body": "Dankie dat jy met {{agentName}} van Firearms Guardian gesels het.\n\nFirearms Guardian bied regsbeskerming en aanspreeklikheidsdekking vir wettige vuurwapen-eienaars. As jy 'n regskwessie het wat jou vuurwapen betrek, skakel ons jou met gekwalifiseerde prokureurs en dek ons jou regskoste.",
         "sections": [
           {
             "heading": "Wat Jy Kry",
-            "content": "24/7 toegang tot gekwalifiseerde vuurwapenprokureurs\nRegsbystand tot R400 000 per saak\nAanspreeklikheidsdekking tot R300 000 per jaar\nDekking vir selfverdediging, toevallige ontlading, jagvoorvalle en Vuurwapenbeherwet-vervolging\nDekking sluit jou onmiddellike gesin in"
+            "content": "24/7 toegang tot gekwalifiseerde vuurwapenprokureurs\nRegsbystand tot R400 000 per saak\nAanspreeklikheidsdekking tot R300 000 per jaar\nDekking vir selfverdediging, toevallige ontlading, jagvoorvalle en Vuurwapenbeheerwet-vervolging\nDekking sluit jou onmiddellike gesin in"
           },
           {
             "heading": "Pryse",
