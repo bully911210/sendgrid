@@ -16,8 +16,8 @@ import {
 
 const deptKeys = Object.keys(departments) as Department[];
 const FIREARMS_GUARDIAN_PDFS = {
-  en: "FG_Brochure_ENG_2026 (9).pdf",
-  af: "FG_Brosjure_AFR_2026 (8).pdf",
+  en: "FG_Brochure_ENG_2026.pdf",
+  af: "FG_Brosjure_AFR_2026.pdf",
 } as const;
 
 type ToastState = null | { type: "success" | "error"; message: string };
