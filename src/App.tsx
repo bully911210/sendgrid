@@ -4,7 +4,6 @@ import { departments } from "./data/departments";
 import { EmailPreview } from "./components/EmailPreview";
 import { SettingsPage } from "./components/SettingsPage";
 import { generateEmailHtml } from "./utils/emailHtml";
-import { generateFirearmsGuardianPdf } from "./utils/pdfGenerator";
 import { useSettings } from "./hooks/useSettings";
 import {
   Send,
@@ -16,8 +15,35 @@ import {
 } from "lucide-react";
 
 const deptKeys = Object.keys(departments) as Department[];
+const FIREARMS_GUARDIAN_PDFS = {
+  en: "FG_Brochure_ENG_2026 (9).pdf",
+  af: "FG_Brosjure_AFR_2026 (8).pdf",
+} as const;
 
 type ToastState = null | { type: "success" | "error"; message: string };
+
+async function loadFirearmsGuardianAttachment(language: Language) {
+  const filename = FIREARMS_GUARDIAN_PDFS[language];
+  const response = await fetch(`/pdfs/${encodeURIComponent(filename)}`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to load ${filename}`);
+  }
+
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  let binary = "";
+  const chunkSize = 0x8000;
+
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+
+  return {
+    content: btoa(binary),
+    filename,
+    type: "application/pdf",
+  };
+}
 
 export default function App() {
   const [view, setView] = useState<"compose" | "settings">("compose");
@@ -110,10 +136,15 @@ export default function App() {
     try {
       const html = generateEmailHtml(template, config, clientName, selectedAgent);
 
-      let attachmentBase64: string | undefined;
+      let attachment:
+        | {
+            content: string;
+            filename: string;
+            type: string;
+          }
+        | undefined;
       if (config.hasAttachment) {
-        const pdfBytes = await generateFirearmsGuardianPdf();
-        attachmentBase64 = btoa(String.fromCharCode(...pdfBytes));
+        attachment = await loadFirearmsGuardianAttachment(language);
       }
 
       const res = await fetch("/api/sendEmail", {
@@ -125,13 +156,7 @@ export default function App() {
           html,
           department: activeDept,
           language,
-          attachment: attachmentBase64
-            ? {
-                content: attachmentBase64,
-                filename: "Firearms_Guardian_Application_Form.pdf",
-                type: "application/pdf",
-              }
-            : undefined,
+          attachment,
         }),
       });
 
