@@ -127,7 +127,7 @@
       "en": {
         "subject": "TLU SA - Membership Information",
         "greeting": "Good day {{clientName}},",
-        "body": "Thank you for speaking with {{agentName}} from TLU SA.\n\nTLU SA represents commercial farmers on property rights, firearm law, labour affairs, security, and agricultural policy. We engage directly with government on legislation that affects farming operations and land ownership.",
+        "body": "Thank you for speaking with {{agentName}} from TLU SA.\n\nTLU SA represents commercial farmers on property rights, firearm law, security, and agricultural policy. We engage directly with government on legislation that affects farming operations and land ownership.",
         "sections": [
           {
             "heading": "What You Get as a Member",
