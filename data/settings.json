@@ -170,7 +170,7 @@
       "af": {
         "subject": "TLU SA - Lidmaatskap-inligting",
         "greeting": "Goeie dag {{clientName}},",
-        "body": "Dankie dat u met {{agentName}} van TLU SA gesels het.\n\nTLU SA verteenwoordig kommersiële boere oor eiendomsregte, vuurwapen-wetgewing, arbeidsake, sekuriteit en landboubeleid. Ons skakel direk met die regering oor wetgewing wat boerdery-bedrywighede en grondbesit raak.",
+        "body": "Dankie dat u met {{agentName}} van TLU SA gesels het.\n\nTLU SA verteenwoordig kommersiële boere oor eiendomsregte, vuurwapen-wetgewing, sekuriteit en landboubeleid. Ons skakel direk met die regering oor wetgewing wat boerdery-bedrywighede en grondbesit raak.",
         "sections": [
           {
             "heading": "Wat U Kry as Lid",
